@@ -36,3 +36,4 @@ Open the URL in Safari, log in, then Share → Add to Home Screen.
 
 Footer → Export data downloads all habits and check-ins as JSON.
 # simple-habbits
+# simple-habbits
