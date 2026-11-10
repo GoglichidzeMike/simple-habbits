@@ -491,8 +491,12 @@ button {
   inset: 0;
   background: rgb(0 0 0 / 0.45);
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
+  padding: calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 12px) 12px
+    calc(env(safe-area-inset-left) + 12px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   z-index: 10;
   animation: fade 0.15s ease-out;
 }
@@ -501,11 +505,12 @@ button {
   width: 100%;
   max-width: 640px;
   background: var(--surface);
-  border-radius: 20px 20px 0 0;
-  padding: 20px 16px calc(env(safe-area-inset-bottom) + 16px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 16px 16px;
   display: grid;
   gap: 14px;
-  animation: rise 0.2s ease-out;
+  animation: drop 0.18s ease-out;
 }
 
 .sheet h2 {
@@ -565,8 +570,9 @@ button {
   }
 }
 
-@keyframes rise {
+@keyframes drop {
   from {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(-12px);
   }
 }

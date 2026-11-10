@@ -29,7 +29,12 @@ export function HabitSheet({ state, onClose, onCreate, onSave, onArchive, onDele
     if (!state) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    const root = document.documentElement
+    root.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      root.style.overflow = ''
+    }
   }, [state, onClose])
 
   if (!state) return null
