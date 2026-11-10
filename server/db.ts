@@ -1,8 +1,20 @@
 import Database from 'better-sqlite3'
 import { mkdirSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
+import { dirname, join, relative, resolve } from 'node:path'
 
-const dbPath = resolve(process.env.DB_PATH ?? './data/habits.db')
+const volume = process.env.RAILWAY_VOLUME_MOUNT_PATH
+const dbPath = resolve(process.env.DB_PATH ?? (volume ? join(volume, 'habits.db') : './data/habits.db'))
+
+if (process.env.RAILWAY_ENVIRONMENT) {
+  if (!volume) {
+    throw new Error('No Railway volume attached. Add a volume to this service, otherwise data is lost on every deploy.')
+  }
+  if (relative(resolve(volume), dbPath).startsWith('..')) {
+    throw new Error(`DB_PATH (${dbPath}) is outside the volume (${volume}). Remove DB_PATH or point it inside the volume.`)
+  }
+}
+
+console.log(`database: ${dbPath}`)
 mkdirSync(dirname(dbPath), { recursive: true })
 
 export const db = new Database(dbPath)

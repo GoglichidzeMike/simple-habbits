@@ -20,11 +20,10 @@ Open http://localhost:5173. The API runs on :3000 and Vite proxies `/api` to it.
 ## Railway
 
 1. Push to GitHub and create a Railway service from the repo.
-2. Add a Volume to the service and mount it at `/data`.
+2. Add a Volume to the service (any mount path, e.g. `/data`). The DB is stored on it automatically, and the app refuses to start on Railway without one.
 3. Set these variables:
    - `APP_PASSWORD`: your login password
    - `SESSION_SECRET`: long random string (`openssl rand -hex 32`)
-   - `DB_PATH=/data/habits.db`
 4. Railway picks up `npm run build` and `npm start` from package.json. Optionally set the healthcheck path to `/api/health`.
 5. Generate a domain under Settings → Networking.
 
