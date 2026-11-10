@@ -16,6 +16,7 @@ export function App() {
   const [editing, setEditing] = useState(false)
   const [sheet, setSheet] = useState<SheetState>(null)
   const [toast, setToast] = useState<string | null>(null)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const today = useToday()
 
@@ -80,6 +81,8 @@ export function App() {
     [handleError, load, showToast],
   )
 
+  const toggleExpanded = useCallback((id: number) => setExpandedId((current) => (current === id ? null : id)), [])
+
   const reorder = useCallback(
     (orderedActive: Habit[]) => {
       const next = [...orderedActive, ...habits.filter((h) => h.archived)]
@@ -143,11 +146,18 @@ export function App() {
       {editing ? (
         <SortableHabits habits={active} onReorder={reorder} onOpen={(habit) => setSheet({ mode: 'edit', habit })} />
       ) : (
-        <main className="list">
+        <ul className="list">
           {active.map((habit) => (
-            <HabitCard key={habit.id} habit={habit} today={today} onToggle={toggleDay} />
+            <HabitCard
+              key={habit.id}
+              habit={habit}
+              today={today}
+              expanded={expandedId === habit.id}
+              onExpand={toggleExpanded}
+              onToggle={toggleDay}
+            />
           ))}
-        </main>
+        </ul>
       )}
 
       <ArchivedList

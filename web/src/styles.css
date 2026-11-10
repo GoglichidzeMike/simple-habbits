@@ -190,44 +190,94 @@ button {
 }
 
 .list {
-  display: grid;
-  gap: 12px;
-}
-
-.card {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   background: var(--surface);
-  min-width: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  overflow: hidden;
 }
 
-.card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+.list:empty {
+  display: none;
 }
 
-.card-title {
+.habit {
   min-width: 0;
 }
 
-.card-title h2 {
-  font-size: 17px;
-  font-weight: 600;
-  overflow-wrap: anywhere;
+.habit + .habit {
+  border-top: 1px solid var(--border);
 }
 
-.card-title p {
-  margin-top: 2px;
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 0;
+}
+
+.habit-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 10px 0 10px 14px;
+  text-align: left;
+}
+
+.habit-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.habit-name {
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.strip {
+  display: flex;
+  gap: 3px;
+  --size: 11px;
+}
+
+.strip .cell {
+  border-radius: 2px;
+}
+
+.strip .cell.today {
+  outline-width: 1px;
+}
+
+.streak {
+  flex: none;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  min-width: 32px;
+  text-align: right;
+}
+
+.habit-detail {
+  padding: 2px 14px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
 }
 
 .check {
   flex: none;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid var(--c);
   background: transparent;
@@ -238,8 +288,8 @@ button {
 }
 
 .check svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: var(--c);
   stroke-width: 3;
@@ -296,6 +346,7 @@ button {
   display: flex;
   gap: var(--gap);
   width: max-content;
+  padding: 0 3px 3px 0;
 }
 
 .week {
